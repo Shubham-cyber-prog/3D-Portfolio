@@ -1,12 +1,14 @@
 import { useRef, useState } from 'react';
-import { Hero } from './portfolio/Hero';
-import { About } from './portfolio/About';
+import { HeroEnhanced } from './portfolio/HeroEnhanced';
+import { AboutEnhanced } from './portfolio/AboutEnhanced';
 import { Projects } from './portfolio/Projects';
-import { Skills } from './portfolio/Skills';
+import { SkillsPhysics } from './portfolio/SkillsPhysics';
 import { Contact } from './portfolio/Contact';
 import { Navigation } from './portfolio/Navigation';
+import { Loader3D } from './Loader3D';
 
 export function Portfolio() {
+  const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('hero');
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
@@ -30,28 +32,34 @@ export function Portfolio() {
   };
 
   return (
-    <div className="w-full h-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory bg-black">
-      <Navigation activeSection={activeSection} onNavigate={scrollToSection} />
+    <>
+      <Loader3D onComplete={() => setIsLoading(false)} />
       
-      <section ref={heroRef} className="w-full h-screen snap-start">
-        <Hero />
-      </section>
-      
-      <section ref={aboutRef} className="w-full min-h-screen snap-start">
-        <About />
-      </section>
-      
-      <section ref={projectsRef} className="w-full min-h-screen snap-start">
-        <Projects />
-      </section>
-      
-      <section ref={skillsRef} className="w-full min-h-screen snap-start">
-        <Skills />
-      </section>
-      
-      <section ref={contactRef} className="w-full min-h-screen snap-start">
-        <Contact />
-      </section>
-    </div>
+      {!isLoading && (
+        <div className="w-full h-full overflow-y-auto overflow-x-hidden snap-y snap-mandatory bg-black">
+          <Navigation activeSection={activeSection} onNavigate={scrollToSection} />
+          
+          <section ref={heroRef} className="w-full h-screen snap-start">
+            <HeroEnhanced />
+          </section>
+          
+          <section ref={aboutRef} className="w-full min-h-screen snap-start">
+            <AboutEnhanced />
+          </section>
+          
+          <section ref={projectsRef} className="w-full min-h-screen snap-start">
+            <Projects />
+          </section>
+          
+          <section ref={skillsRef} className="w-full min-h-screen snap-start">
+            <SkillsPhysics />
+          </section>
+          
+          <section ref={contactRef} className="w-full min-h-screen snap-start">
+            <Contact />
+          </section>
+        </div>
+      )}
+    </>
   );
 }

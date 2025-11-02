@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { useState, useRef } from 'react';
 import { RoundedBox } from '@react-three/drei';
 import * as THREE from 'three';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Eye } from 'lucide-react';
+import { ProjectModal } from './ProjectModal';
 
 function ProjectCard3D({ position, color, isHovered }: { position: [number, number, number], color: string, isHovered: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -43,6 +44,8 @@ function ProjectCard3D({ position, color, isHovered }: { position: [number, numb
 
 export function Projects() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const projects = [
     {
@@ -51,6 +54,14 @@ export function Projects() {
       tech: ['Three.js', 'React', 'GSAP'],
       color: '#8b5cf6',
       position: [-2, 0, 0] as [number, number, number],
+      details: 'A fully immersive virtual gallery that allows users to explore art in 3D space. Features include realistic lighting, smooth camera controls, and interactive artwork information panels.',
+      features: [
+        'Realistic 3D environment with proper lighting and shadows',
+        'Smooth camera controls and navigation',
+        'Interactive artwork information system',
+        'Performance optimized for web browsers',
+        'Mobile-responsive design with touch controls'
+      ]
     },
     {
       title: 'Particle Symphony',
@@ -58,6 +69,14 @@ export function Projects() {
       tech: ['WebGL', 'GLSL', 'Web Audio API'],
       color: '#ec4899',
       position: [0, 0, 0] as [number, number, number],
+      details: 'An audio-reactive visualization experience that transforms sound into mesmerizing particle animations. Built with custom GLSL shaders for maximum performance.',
+      features: [
+        'Real-time audio analysis and visualization',
+        'Custom GLSL shaders for particle effects',
+        'Support for multiple audio sources',
+        'Configurable visual presets',
+        '60fps performance on modern hardware'
+      ]
     },
     {
       title: 'Interactive Portfolio',
@@ -65,8 +84,21 @@ export function Projects() {
       tech: ['React Three Fiber', 'Framer Motion', 'TypeScript'],
       color: '#06b6d4',
       position: [2, 0, 0] as [number, number, number],
+      details: 'A cutting-edge portfolio showcasing work through interactive 3D elements and smooth animations. Combines modern web technologies with creative visual design.',
+      features: [
+        'Scroll-based 3D animations',
+        'Interactive navigation system',
+        'Custom shader materials',
+        'Responsive across all devices',
+        'Optimized loading and performance'
+      ]
     },
   ];
+
+  const handleProjectClick = (index: number) => {
+    setSelectedProject(index);
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="relative w-full min-h-screen bg-gradient-to-b from-purple-950/20 to-black">
@@ -149,6 +181,14 @@ export function Projects() {
                 </div>
 
                 <div className="flex gap-4">
+                  <button 
+                    onClick={() => handleProjectClick(index)}
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500
+                                   rounded-lg text-white hover:shadow-lg hover:shadow-purple-500/50 
+                                   transition-all hover:scale-105">
+                    <Eye className="w-4 h-4" />
+                    <span>Details</span>
+                  </button>
                   <button className="flex items-center gap-2 px-4 py-2 bg-white/10 
                                    rounded-lg text-white hover:bg-white/20 transition-all">
                     <ExternalLink className="w-4 h-4" />
@@ -165,6 +205,12 @@ export function Projects() {
           ))}
         </div>
       </div>
+
+      <ProjectModal 
+        project={selectedProject !== null ? projects[selectedProject] : null}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
