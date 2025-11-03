@@ -24,7 +24,26 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          three: ['three', '@react-three/fiber', '@react-three/drei']
+        }
+      }
+    }
+  },
+  // Netlify specific optimizations
+  optimizeDeps: {
+    include: ['three', '@react-three/fiber', '@react-three/drei']
   },
   // Add support for large models and audio files
   assetsInclude: ["**/*.gltf", "**/*.glb", "**/*.mp3", "**/*.ogg", "**/*.wav"],
+  // Server configuration for development
+  server: {
+    port: 3000,
+    host: true
+  },
+  // Base path for production
+  base: './'
 });
