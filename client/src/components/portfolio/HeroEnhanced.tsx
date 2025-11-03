@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Float, Sphere, Box, Torus } from '@react-three/drei';
+import { OrbitControls, Float } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
@@ -7,7 +7,7 @@ import { hologramVertexShader, hologramFragmentShader } from './shaders/hologram
 
 function HologramShape({ geometry, position, color }: { geometry: THREE.BufferGeometry, position: [number, number, number], color: string }) {
   const meshRef = useRef<THREE.Mesh>(null);
-  
+
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
@@ -49,31 +49,11 @@ function EnhancedShapes() {
 
   return (
     <>
-      <HologramShape 
-        geometry={sphereGeometry} 
-        position={[-3, 2, -2]} 
-        color="#8b5cf6" 
-      />
-      <HologramShape 
-        geometry={boxGeometry} 
-        position={[3, -1, -1]} 
-        color="#ec4899" 
-      />
-      <HologramShape 
-        geometry={torusGeometry} 
-        position={[0, 1, -3]} 
-        color="#06b6d4" 
-      />
-      <HologramShape 
-        geometry={icosahedronGeometry} 
-        position={[2, 3, -2]} 
-        color="#f59e0b" 
-      />
-      <HologramShape 
-        geometry={boxGeometry} 
-        position={[-2, -2, -2]} 
-        color="#10b981" 
-      />
+      <HologramShape geometry={sphereGeometry} position={[-3, 2, -2]} color="#8b5cf6" />
+      <HologramShape geometry={boxGeometry} position={[3, -1, -1]} color="#ec4899" />
+      <HologramShape geometry={torusGeometry} position={[0, 1, -3]} color="#06b6d4" />
+      <HologramShape geometry={icosahedronGeometry} position={[2, 3, -2]} color="#f59e0b" />
+      <HologramShape geometry={boxGeometry} position={[-2, -2, -2]} color="#10b981" />
     </>
   );
 }
@@ -81,7 +61,7 @@ function EnhancedShapes() {
 function ParticleField() {
   const particlesRef = useRef<THREE.Points>(null);
   const particleCount = 1000;
-  
+
   const positions = useMemo(() => {
     const pos = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount * 3; i++) {
@@ -118,7 +98,6 @@ function ParticleField() {
 }
 
 export function HeroEnhanced() {
-  // Button click handlers
   const handleViewWork = () => {
     window.open('https://github.com/Shubham-cyber-prog?tab=repositories', '_blank');
   };
@@ -127,45 +106,19 @@ export function HeroEnhanced() {
     window.open('https://www.linkedin.com/in/subhamnayak/', '_blank');
   };
 
-  // Fixed scroll handler
-  const handleScrollDown = () => {
-    // Next section की height calculate करें
-    const nextSection = document.getElementById('next-section');
-    if (nextSection) {
-      nextSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    } else {
-      // Agar next section नहीं मिला तो page के 90% scroll करें
-      window.scrollTo({
-        top: window.innerHeight * 0.9,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   return (
-    <section className="relative w-full h-screen"> {/* Added section tag */}
-      <Canvas
-        camera={{ position: [0, 0, 8], fov: 50 }}
-        className="absolute inset-0"
-      >
-        <color attach="background" args={['#000000']} />
-        
+    <section className="relative w-full h-screen">
+      <Canvas camera={{ position: [0, 0, 8], fov: 50 }} className="absolute inset-0">
+        <color attach="background" args={['#000']} />
+
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
         <pointLight position={[-10, -10, -10]} intensity={0.5} color="#8b5cf6" />
-        
+
         <EnhancedShapes />
         <ParticleField />
-        
-        <OrbitControls 
-          enableZoom={false} 
-          enablePan={false}
-          autoRotate
-          autoRotateSpeed={0.5}
-        />
+
+        <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
       </Canvas>
 
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
@@ -181,7 +134,7 @@ export function HeroEnhanced() {
           >
             Subham Nayak
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -190,14 +143,14 @@ export function HeroEnhanced() {
           >
             Full Stack Developer
           </motion.p>
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex gap-4 justify-center pointer-events-auto"
           >
-            <button 
+            <button
               onClick={handleViewWork}
               className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 
                          text-white rounded-full font-semibold
@@ -207,7 +160,7 @@ export function HeroEnhanced() {
             >
               View Work
             </button>
-            <button 
+            <button
               onClick={handleContactMe}
               className="px-8 py-3 bg-white/10 backdrop-blur-sm
                          text-white rounded-full font-semibold border border-white/20
@@ -218,50 +171,6 @@ export function HeroEnhanced() {
             </button>
           </motion.div>
         </div>
-      </div>
-
-      {/* Fixed Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 cursor-pointer pointer-events-auto"
-        onClick={handleScrollDown}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            handleScrollDown();
-          }
-        }}
-      >
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full p-1 hover:border-white/80 transition-colors duration-300 group">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
-            className="w-1.5 h-1.5 bg-white rounded-full mx-auto group-hover:bg-purple-400 transition-colors duration-300"
-          />
-        </div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 2 }}
-          className="text-white/70 text-xs mt-2 text-center hover:text-white transition-colors duration-300"
-        >
-          Scroll Down
-        </motion.p>
-      </motion.div>
-    </section>
-  );
-}
-
-// Next section component (अगर नहीं है तो add करें)
-export function NextSection() {
-  return (
-    <section id="next-section" className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <div className="text-center text-white">
-        <h2 className="text-4xl font-bold mb-4">Next Section</h2>
-        <p className="text-xl">This is the section that appears after scrolling down</p>
       </div>
     </section>
   );
