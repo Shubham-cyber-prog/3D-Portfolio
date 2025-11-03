@@ -1,8 +1,7 @@
 # 3D-Portfolio
 # 🚀 3D Portfolio — Built with React + Three.js + Vite
 
-![3D Banner](<img width="1900" height="973" alt="image" src="https://github.com/user-attachments/assets/1083b140-f1b9-46c2-be60-bac2050c612d" />
-)
+<img width="1900" height="973" alt="image" src="https://github.com/user-attachments/assets/1083b140-f1b9-46c2-be60-bac2050c612d" />
 
 > A next-gen 3D interactive portfolio that brings your skills, creativity, and personality to life — powered by **React**, **Three.js**, **Framer Motion**, and **Vite** ⚡
 
