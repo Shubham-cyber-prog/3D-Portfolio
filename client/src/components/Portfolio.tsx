@@ -6,6 +6,7 @@ import { SkillsPhysics } from './portfolio/SkillsPhysics';
 import { Contact } from './portfolio/Contact';
 import { Navigation } from './portfolio/Navigation';
 import { Loader3D } from './Loader3D';
+import { Footer } from './portfolio/Footer'; // Import the Footer component
 
 export function Portfolio() {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,6 +16,7 @@ export function Portfolio() {
   const projectsRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
 
   const scrollToSection = (section: string) => {
     const refs = {
@@ -23,6 +25,7 @@ export function Portfolio() {
       projects: projectsRef,
       skills: skillsRef,
       contact: contactRef,
+      footer: footerRef,
     };
     
     refs[section as keyof typeof refs]?.current?.scrollIntoView({ 
@@ -57,6 +60,11 @@ export function Portfolio() {
           
           <section ref={contactRef} className="w-full min-h-screen snap-start">
             <Contact />
+          </section>
+          
+          {/* Footer Section */}
+          <section ref={footerRef} className="w-full snap-start">
+            <Footer />
           </section>
         </div>
       )}

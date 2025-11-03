@@ -49,48 +49,58 @@ export function Projects() {
 
   const projects = [
     {
-      title: 'Immersive 3D Gallery',
-      description: 'An interactive virtual gallery experience built with Three.js and WebGL',
-      tech: ['Three.js', 'React', 'GSAP'],
-      color: '#8b5cf6',
+      title: 'Nexus Indian Bank',
+      description: 'A modern, responsive Bank Web Application with next-generation payment solutions',
+      tech: ['React', 'Tailwind CSS', 'Vite', 'ESLint'],
+      color: '#2563eb',
       position: [-2, 0, 0] as [number, number, number],
-      details: 'A fully immersive virtual gallery that allows users to explore art in 3D space. Features include realistic lighting, smooth camera controls, and interactive artwork information panels.',
+      liveUrl: 'https://nexus-indian.netlify.app/',
+      codeUrl: 'https://github.com/Shubham-cyber-prog/Nexus-INDIAN-BANK-.git',
+      image: 'https://tse3.mm.bing.net/th/id/OIP.HfHDlDjts9qxYjKlW1GfRAHaEo?rs=1&pid=ImgDetMain&o=7&rm=3',
+      details: 'A modern, responsive Bank Web Application built using React + Tailwind CSS + Vite, designed to showcase next-generation payment solutions with smooth animations, interactive UI components, and optimized performance.',
       features: [
-        'Realistic 3D environment with proper lighting and shadows',
-        'Smooth camera controls and navigation',
-        'Interactive artwork information system',
-        'Performance optimized for web browsers',
-        'Mobile-responsive design with touch controls'
+        'Modern responsive design with Tailwind CSS',
+        'Smooth animations and interactive UI components',
+        'Optimized performance with Vite',
+        'Next-generation payment solutions showcase',
+        'Clean code architecture with ESLint'
       ]
     },
     {
-      title: 'Particle Symphony',
-      description: 'Real-time audio visualization using particle systems and shader programming',
-      tech: ['WebGL', 'GLSL', 'Web Audio API'],
-      color: '#ec4899',
+      title: 'Personal Portfolio',
+      description: 'My personal portfolio showcasing my technical skills, creative projects, and professional achievements',
+      tech: ['HTML5', 'CSS3', 'JavaScript','GSAP', ],
+      color: '#10b981',
       position: [0, 0, 0] as [number, number, number],
-      details: 'An audio-reactive visualization experience that transforms sound into mesmerizing particle animations. Built with custom GLSL shaders for maximum performance.',
+      liveUrl: 'https://shubham-cyber-prog.github.io/portfolio/',
+      codeUrl: 'https://github.com/Shubham-cyber-prog/portfolio.git',
+      image: '/api/placeholder/400/250',
+      details: 'My personal portfolio showcasing skills, projects, and achievement built using HTML, CSS and JavaScript. Features a clean, modern design with smooth interactions.',
       features: [
-        'Real-time audio analysis and visualization',
-        'Custom GLSL shaders for particle effects',
-        'Support for multiple audio sources',
-        'Configurable visual presets',
-        '60fps performance on modern hardware'
+        'Responsive design with HTML5 and CSS3',
+        'Interactive elements with JavaScript',
+        'Project showcase section',
+        'Skills and achievements display',
+        'Clean and modern UI design'
       ]
     },
     {
-      title: 'Interactive Portfolio',
-      description: 'A modern portfolio website with scroll-based 3D animations',
-      tech: ['React Three Fiber', 'Framer Motion', 'TypeScript'],
-      color: '#06b6d4',
+      title: 'InternHub',
+      description: 'Centralized platform for managing internships and applications',
+      tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT'],
+      color: '#f59e0b',
       position: [2, 0, 0] as [number, number, number],
-      details: 'A cutting-edge portfolio showcasing work through interactive 3D elements and smooth animations. Combines modern web technologies with creative visual design.',
+      liveUrl: 'https://intern-hub-frontend.vercel.app/',
+      codeUrl: 'https://github.com/HackWatt/Internhub.git',
+      image: '/api/placeholder/400/250',
+      details: 'InternHub is a full-stack web application that serves as a portal for students and job seekers to apply for internships and for employers to post internship opportunities. The platform includes secure authentication using JWT tokens, a review section, and an integrated AI chatbot powered by Google Gemini AI.',
       features: [
-        'Scroll-based 3D animations',
-        'Interactive navigation system',
-        'Custom shader materials',
-        'Responsive across all devices',
-        'Optimized loading and performance'
+        'Secure JWT authentication system',
+        'Role-based access (Students & Employers)',
+        'AI chatbot integration with Google Gemini',
+        'Review and rating system',
+        'Real-time application tracking',
+        'MongoDB database with Mongoose ODM'
       ]
     },
   ];
@@ -98,6 +108,14 @@ export function Projects() {
   const handleProjectClick = (index: number) => {
     setSelectedProject(index);
     setIsModalOpen(true);
+  };
+
+  const handleViewLive = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleViewCode = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -185,17 +203,24 @@ export function Projects() {
                     onClick={() => handleProjectClick(index)}
                     className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500
                                    rounded-lg text-white hover:shadow-lg hover:shadow-purple-500/50 
-                                   transition-all hover:scale-105">
+                                   transition-all hover:scale-105"
+                  >
                     <Eye className="w-4 h-4" />
                     <span>Details</span>
                   </button>
-                  <button className="flex items-center gap-2 px-4 py-2 bg-white/10 
-                                   rounded-lg text-white hover:bg-white/20 transition-all">
+                  <button 
+                    onClick={() => handleViewLive(project.liveUrl)}
+                    className="flex items-center gap-2 px-4 py-2 bg-white/10 
+                                   rounded-lg text-white hover:bg-white/20 transition-all hover:scale-105"
+                  >
                     <ExternalLink className="w-4 h-4" />
-                    <span>View</span>
+                    <span>Live</span>
                   </button>
-                  <button className="flex items-center gap-2 px-4 py-2 bg-white/10 
-                                   rounded-lg text-white hover:bg-white/20 transition-all">
+                  <button 
+                    onClick={() => handleViewCode(project.codeUrl)}
+                    className="flex items-center gap-2 px-4 py-2 bg-white/10 
+                                   rounded-lg text-white hover:bg-white/20 transition-all hover:scale-105"
+                  >
                     <Github className="w-4 h-4" />
                     <span>Code</span>
                   </button>

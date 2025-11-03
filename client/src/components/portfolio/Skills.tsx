@@ -55,17 +55,17 @@ export function Skills() {
   const skillCategories = [
     {
       title: 'Frontend',
-      skills: ['React', 'Three.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+      skills: ['HTML', 'CSS', 'Javascript', 'Tailwind CSS', 'React'],
       color: 'from-purple-500 to-pink-500',
     },
     {
-      title: '3D & Graphics',
-      skills: ['WebGL', 'GLSL Shaders', 'React Three Fiber', 'Blender', 'GSAP'],
+      title: '3D, Programming & Database',
+      skills: ['WebGL', 'C++', 'C', 'Mongodb', 'GSAP'],
       color: 'from-pink-500 to-orange-500',
     },
     {
       title: 'Backend',
-      skills: ['Node.js', 'Express', 'PostgreSQL', 'REST APIs', 'WebSockets'],
+      skills: ['Node.js', 'Express', 'Python', 'REST APIs', 'WebSockets'],
       color: 'from-cyan-500 to-blue-500',
     },
   ];

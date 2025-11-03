@@ -118,8 +118,35 @@ function ParticleField() {
 }
 
 export function HeroEnhanced() {
+  // Button click handlers
+  const handleViewWork = () => {
+    window.open('https://github.com/Shubham-cyber-prog?tab=repositories', '_blank');
+  };
+
+  const handleContactMe = () => {
+    window.open('https://www.linkedin.com/in/subhamnayak/', '_blank');
+  };
+
+  // Fixed scroll handler
+  const handleScrollDown = () => {
+    // Next section की height calculate करें
+    const nextSection = document.getElementById('next-section');
+    if (nextSection) {
+      nextSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else {
+      // Agar next section नहीं मिला तो page के 90% scroll करें
+      window.scrollTo({
+        top: window.innerHeight * 0.9,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
-    <div className="relative w-full h-full">
+    <section className="relative w-full h-screen"> {/* Added section tag */}
       <Canvas
         camera={{ position: [0, 0, 8], fov: 50 }}
         className="absolute inset-0"
@@ -152,7 +179,7 @@ export function HeroEnhanced() {
               textShadow: '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3)',
             }}
           >
-            Creative Developer
+            Subham Nayak
           </motion.h1>
           
           <motion.p
@@ -161,7 +188,7 @@ export function HeroEnhanced() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-xl md:text-2xl text-gray-300 mb-8"
           >
-            Crafting immersive digital experiences
+            Full Stack Developer
           </motion.p>
           
           <motion.div
@@ -170,35 +197,72 @@ export function HeroEnhanced() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="flex gap-4 justify-center pointer-events-auto"
           >
-            <button className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 
-                             text-white rounded-full font-semibold
-                             hover:shadow-lg hover:shadow-purple-500/50 
-                             transition-all duration-300 hover:scale-105">
+            <button 
+              onClick={handleViewWork}
+              className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 
+                         text-white rounded-full font-semibold
+                         hover:shadow-lg hover:shadow-purple-500/50 
+                         transition-all duration-300 hover:scale-105
+                         focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
+            >
               View Work
             </button>
-            <button className="px-8 py-3 bg-white/10 backdrop-blur-sm
-                             text-white rounded-full font-semibold border border-white/20
-                             hover:bg-white/20 transition-all duration-300 hover:scale-105">
+            <button 
+              onClick={handleContactMe}
+              className="px-8 py-3 bg-white/10 backdrop-blur-sm
+                         text-white rounded-full font-semibold border border-white/20
+                         hover:bg-white/20 transition-all duration-300 hover:scale-105
+                         focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+            >
               Contact Me
             </button>
           </motion.div>
         </div>
       </div>
 
+      {/* Fixed Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 cursor-pointer pointer-events-auto"
+        onClick={handleScrollDown}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            handleScrollDown();
+          }
+        }}
       >
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full p-1">
+        <div className="w-6 h-10 border-2 border-white/50 rounded-full p-1 hover:border-white/80 transition-colors duration-300 group">
           <motion.div
             animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-1.5 bg-white rounded-full mx-auto"
+            transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+            className="w-1.5 h-1.5 bg-white rounded-full mx-auto group-hover:bg-purple-400 transition-colors duration-300"
           />
         </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 2 }}
+          className="text-white/70 text-xs mt-2 text-center hover:text-white transition-colors duration-300"
+        >
+          Scroll Down
+        </motion.p>
       </motion.div>
-    </div>
+    </section>
+  );
+}
+
+// Next section component (अगर नहीं है तो add करें)
+export function NextSection() {
+  return (
+    <section id="next-section" className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="text-center text-white">
+        <h2 className="text-4xl font-bold mb-4">Next Section</h2>
+        <p className="text-xl">This is the section that appears after scrolling down</p>
+      </div>
+    </section>
   );
 }
