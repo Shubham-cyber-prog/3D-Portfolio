@@ -46,7 +46,13 @@ const hologramFragmentShader = `
   }
 `;
 
-function HologramShape({ geometry, position, color }) {
+interface HologramShapeProps {
+  geometry: THREE.BufferGeometry;
+  position: [number, number, number];
+  color: string;
+}
+
+function HologramShape({ geometry, position, color }: HologramShapeProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   
   const uniforms = useMemo(
@@ -74,7 +80,7 @@ function HologramShape({ geometry, position, color }) {
           vertexShader={hologramVertexShader}
           fragmentShader={hologramFragmentShader}
           uniforms={uniforms}
-          transparent
+          transparent={true}
           side={THREE.DoubleSide}
         />
       </mesh>
@@ -150,9 +156,9 @@ function ParticleField() {
       <pointsMaterial
         size={0.05}
         color="#ffffff"
-        transparent
+        transparent={true}
         opacity={0.6}
-        sizeAttenuation
+        sizeAttenuation={true}
       />
     </points>
   );
@@ -220,7 +226,7 @@ export function HeroEnhanced() {
             <OrbitControls 
               enableZoom={false} 
               enablePan={false}
-              autoRotate
+              autoRotate={true}
               autoRotateSpeed={0.5}
             />
           )}
@@ -421,7 +427,6 @@ export default function Home() {
     <div className="relative">
       <HeroEnhanced />
       <AboutSection />
-      {/* You can add more sections here */}
     </div>
   );
 }
