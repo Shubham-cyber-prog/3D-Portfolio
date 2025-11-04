@@ -39,8 +39,8 @@ It combines **modern web tech** with **3D animations**, delivering a cinematic a
 ---
 
 ## 📂 Folder Structure
-3D-Portfolio/
 ``
+3D-Portfolio/
 │
 ├── client/
 │ ├── src/
